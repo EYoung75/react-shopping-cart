@@ -19,15 +19,6 @@ var products = [
   { id: 48, name: 'Awesome Leather Shoes', priceInCents: 3990 },
 ];
 
-var cartItemsList = [
-  { id: 1, product: { id: 40, name: 'Mediocre Iron Watch', priceInCents: 399 }, quantity: 1 },
-  { id: 2, product: { id: 41, name: 'Heavy Duty Concrete Plate', priceInCents: 499 }, quantity: 2 },
-  { id: 3, product: { id: 42, name: 'Intelligent Paper Knife', priceInCents: 1999 }, quantity: 1 },
-];
-
-const submit = () => {
-    console.log("fuck yeah it works")
-}
 
 class App extends Component {
   constructor() {
@@ -35,22 +26,54 @@ class App extends Component {
     this.state = {
       copyrightYear: 2016,
       products: products,
-      cartItems: cartItemsList,
-      submit: submit
-      
-    }
+      name: "",
+      quantity: 0,
+      cart: [],
+      total: 0
+      }
   }
-  render() {
+
+  grabItem = (e) => {
+    this.setState({[e.target.name]: e.target.value });
+  }
+
+  submitButton = (e) => {
+    e.preventDefault();
+    const name = this.state.name;
+    const quantity = this.state.quantity;
+    const items = this.state.products;
+
+    let filtered = items.filter(item => item.name === name)
+    let newItem = {
+      product: {
+        id: filtered[0].id,
+        name: filtered[0].name,
+        priceInCents: filtered[0].priceInCents
+      },
+      quantity: quantity
+    }
+
+    let cart = this.state.cart;
+    this.setState({cart:[...cart, newItem]})
+    
+    let total = this.state.total;
+  
+    let amountAddedToCart = (((newItem.product.priceInCents)/100).toFixed(2)*this.state.quantity)
+    this.setState({total: (total+amountAddedToCart)})
+    }
+  
+  render(){
+
+    console.log(this.state.cart)
   
     return (
       <div className="app">
         <Header />
-        <CartItems cartItems={cartItemsList}/>
-        <AddItem products={this.state.products} submit={this.state.products} />
+        <CartItems cartItems={this.state.cart}/>
+        <AddItem products={this.state.products} grabItem={this.grabItem} submitButton={this.submitButton} total={this.state.total}/>
         <Footer copyrightYear={this.state.copyrightYear}/>
       </div>
     )
   }
-}
-
+  }
 export default App;

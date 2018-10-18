@@ -16,7 +16,12 @@ class CartItems extends Component {
                             <div className="col-md-2">Quantity</div>
                         </div>
                     </div>
-                    <CartItem cartItemsList={this.props.cartItems} />
+                    {this.props.cartItems.map(item => <CartItem
+                        name={item.product.name}
+                        price={((item.product.priceInCents)/100).toFixed(2)}
+                        quantity={item.quantity}
+                    />)}
+
                 </div>
             </div>
         )
