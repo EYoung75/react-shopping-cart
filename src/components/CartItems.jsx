@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import CartItem from "./CartItem";
 
 class CartItems extends Component {
 
     render() {
+
+        const CartItem = this.props.cartItems.map(item => <CartItem
+            name={item.product.name}
+            price={((item.product.priceInCents)/100).toFixed(2)}
+            quantity={item.quantity}
+        />)
 
         return (
             <div className="container">
@@ -16,11 +21,7 @@ class CartItems extends Component {
                             <div className="col-md-2">Quantity</div>
                         </div>
                     </div>
-                    {this.props.cartItems.map(item => <CartItem
-                        name={item.product.name}
-                        price={((item.product.priceInCents)/100).toFixed(2)}
-                        quantity={item.quantity}
-                    />)}
+                    {CartItem}
 
                 </div>
             </div>
