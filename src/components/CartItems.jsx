@@ -1,10 +1,11 @@
-import React, { Component } from "react";
+import React, { Component } from "react"
+import CartItem from "./CartItem.jsx"
 
 class CartItems extends Component {
 
     render() {
 
-        const CartItem = this.props.cartItems.map(item => <CartItem
+        const CartItem = this.props.cart.map(item => <CartItem
             name={item.product.name}
             price={((item.product.priceInCents)/100).toFixed(2)}
             quantity={item.quantity}
@@ -22,12 +23,10 @@ class CartItems extends Component {
                         </div>
                     </div>
                     {CartItem}
-
                 </div>
             </div>
         )
-
     }
 }
 
-export default CartItems;
+export default CartItems

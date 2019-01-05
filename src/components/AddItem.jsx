@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 
 class AddItem extends React.Component {
@@ -10,7 +10,7 @@ class AddItem extends React.Component {
             )
         })
         return (
-            <div className="collection-item container" >
+            <div className="collection-item container">
                 <div>
                     <h2>Grand Total:</h2>
                     <p>${this.props.total}</p>
@@ -27,9 +27,8 @@ class AddItem extends React.Component {
                 </div>
                 <button onClick={this.props.submitButton} value="submit" className="btn btn-primary">Submit</button>
             </div>
-
         )
     }
 }
 
-export default AddItem;
+export default AddItem
